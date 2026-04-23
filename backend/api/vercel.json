@@ -2,30 +2,30 @@
     "version": 2,
     "builds": [
         {
-            "src": "server.js",
+            "src": "api/index.js",
             "use": "@vercel/node"
         }
     ],
     "routes": [
         {
-            "src": "/create",
-            "dest": "server.js"
+            "src": "/(.*)",
+            "methods": ["OPTIONS"],
+            "headers": {
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+                "Access-Control-Allow-Headers": "Content-Type",
+                "Access-Control-Max-Age": "86400"
+            },
+            "dest": "api/index.js"
         },
         {
-            "src": "/note",
-            "dest": "server.js"
-        },
-        {
-            "src": "/notes",
-            "dest": "server.js"
-        },
-        {
-            "src": "/quizzes",
-            "dest": "server.js"
-        },
-        {
-            "src": "/",
-            "dest": "server.js"
+            "src": "/(.*)",
+            "headers": {
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+                "Access-Control-Allow-Headers": "Content-Type"
+            },
+            "dest": "api/index.js"
         }
     ]
 }
