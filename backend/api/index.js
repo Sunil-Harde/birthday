@@ -20,6 +20,8 @@ const Quiz = mongoose.model("Quiz", quizSchema);
 
 // ===== SCHEMA 2: Birthday Notes (from messages page) =====
 const noteSchema = new mongoose.Schema({
+        from: String,      // 👈 Added
+
     title: String,
     message: String,
 }, { timestamps: true });
@@ -43,8 +45,8 @@ app.post("/create", async (req, res) => {
 // ===== ENDPOINT 2: Save Birthday Note =====
 app.post("/note", async (req, res) => {
     try {
-        const { title, message } = req.body;
-        const saved = await new Note({ title, message }).save();
+        const { from, title, message } = req.body;   // 👈 Added from
+        const saved = await new Note({ from, title, message }).save();
         res.status(201).json({ message: "Note saved!", data: saved });
     } catch (error) {
         res.status(500).json({ error: error.message });
