@@ -5,86 +5,73 @@ require("dotenv").config();
 
 const app = express();
 
-// ✅ Manual CORS headers — most reliable on Vercel
-app.use((req, res, next) => {
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-    if (req.method === "OPTIONS") {
-        return res.status(200).end();
-    }
-    next();
-});
-
+// ✅ CORS Configuration
 app.use(cors({ origin: "*" }));
 app.use(express.json());
 
-// DB connection
-mongoose.connect(process.env.MONGO_URI)
-    .then(() => console.log("✅ MongoDB connected"))
-    .catch(err => console.log("❌ DB Error:", err));
+// ✅ Database Connection Logic for Serverless
+// This prevents multiple connections during Vercel "cold starts"
+let isConnected = false;
+const connectDB = async () => {
+    if (isConnected) return;
+    try {
+        const db = await mongoose.connect(process.env.MONGO_URI);
+        isConnected = db.connections[0].readyState;
+        console.log("✅ MongoDB connected");
+    } catch (err) {
+        console.error("❌ DB Connection Error:", err);
+    }
+};
 
-// ===== SCHEMA 1: Quiz Answers =====
+// Middleware to ensure DB is connected before handling any request
+app.use(async (req, res, next) => {
+    await connectDB();
+    next();
+});
+
+// ===== SCHEMAS =====
 const quizSchema = new mongoose.Schema({
     foodAnswer: { type: String, required: true },
     replyAnswer: { type: String, required: true },
 }, { timestamps: true });
-const Quiz = mongoose.model("Quiz", quizSchema, "quizzes");
+const Quiz = mongoose.models.Quiz || mongoose.model("Quiz", quizSchema, "quizzes");
 
-// ===== SCHEMA 2: Birthday Notes =====
 const noteSchema = new mongoose.Schema({
     from: String,
     title: String,
     message: { type: String, required: true },
 }, { timestamps: true });
-const Note = mongoose.model("Note", noteSchema, "notes");
+const Note = mongoose.models.Note || mongoose.model("Note", noteSchema, "notes");
 
-// ===== TEST ROUTE =====
+// ===== ROUTES =====
 app.get("/", (req, res) => {
     res.json({ status: true, api: "running" });
 });
 
-// ===== ENDPOINT 1: Save Quiz Answers =====
 app.post("/create", async (req, res) => {
     try {
-        console.log("📥 Quiz data received:", req.body);
         const { foodAnswer, replyAnswer } = req.body;
+        if (!foodAnswer || !replyAnswer) return res.status(400).json({ error: "Both answers are required!" });
 
-        if (!foodAnswer || !replyAnswer) {
-            return res.status(400).json({ error: "Both answers are required!" });
-        }
-
-        const saved = await new Quiz({ foodAnswer, replyAnswer }).save();
-        console.log("✅ Quiz saved:", saved);
+        const saved = await Quiz.create({ foodAnswer, replyAnswer });
         res.status(201).json({ message: "Quiz saved!", data: saved });
-
     } catch (error) {
-        console.error("❌ Create error:", error.message);
         res.status(500).json({ error: error.message });
     }
 });
 
-// ===== ENDPOINT 2: Save Birthday Note =====
 app.post("/note", async (req, res) => {
     try {
-        console.log("📥 Note data received:", req.body);
         const { from, title, message } = req.body;
+        if (!message) return res.status(400).json({ error: "Message is required!" });
 
-        if (!message) {
-            return res.status(400).json({ error: "Message is required!" });
-        }
-
-        const saved = await new Note({ from, title, message }).save();
-        console.log("✅ Note saved:", saved);
+        const saved = await Note.create({ from, title, message });
         res.status(201).json({ message: "Note saved!", data: saved });
-
     } catch (error) {
-        console.error("❌ Note error:", error.message);
         res.status(500).json({ error: error.message });
     }
 });
 
-// ===== GET all notes =====
 app.get("/notes", async (req, res) => {
     try {
         const notes = await Note.find().sort({ createdAt: -1 });
@@ -94,7 +81,6 @@ app.get("/notes", async (req, res) => {
     }
 });
 
-// ===== GET all quizzes =====
 app.get("/quizzes", async (req, res) => {
     try {
         const quizzes = await Quiz.find().sort({ createdAt: -1 });
@@ -104,4 +90,5 @@ app.get("/quizzes", async (req, res) => {
     }
 });
 
+// ✅ Export for Vercel
 module.exports = app;
