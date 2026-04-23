@@ -5,34 +5,36 @@ require("dotenv").config();
 
 const app = express();
 
-// ✅ CORS fix - allow all origins
 app.use(cors({
     origin: "*",
     methods: ["GET", "POST"],
     allowedHeaders: ["Content-Type"]
 }));
-
 app.use(express.json());
 
 // DB connection
 mongoose.connect(process.env.MONGO_URI)
-    .then(() => console.log("MongoDB connected"))
-    .catch(err => console.log("DB Error:", err));
+    .then(() => console.log("✅ MongoDB connected"))
+    .catch(err => console.log("❌ DB Error:", err));
 
 // ===== SCHEMA 1: Quiz Answers =====
+// ✅ 'quizzes' collection - fixed model name
 const quizSchema = new mongoose.Schema({
-    foodAnswer: String,
-    replyAnswer: String,
+    foodAnswer: { type: String, required: true },
+    replyAnswer: { type: String, required: true },
 }, { timestamps: true });
-const Quiz = mongoose.model("Quiz", quizSchema);
+
+// ✅ Force collection name to 'quizzes' explicitly
+const Quiz = mongoose.model("Quiz", quizSchema, "quizzes");
 
 // ===== SCHEMA 2: Birthday Notes =====
 const noteSchema = new mongoose.Schema({
     from: String,
     title: String,
-    message: String,
+    message: { type: String, required: true },
 }, { timestamps: true });
-const Note = mongoose.model("Note", noteSchema);
+
+const Note = mongoose.model("Note", noteSchema, "notes");
 
 // ===== TEST ROUTE =====
 app.get("/", (req, res) => {
@@ -42,17 +44,20 @@ app.get("/", (req, res) => {
 // ===== ENDPOINT 1: Save Quiz Answers =====
 app.post("/create", async (req, res) => {
     try {
-        console.log("Received quiz data:", req.body); // 👈 helps debug
+        console.log("📥 Quiz data received:", req.body);
+
         const { foodAnswer, replyAnswer } = req.body;
 
         if (!foodAnswer || !replyAnswer) {
-            return res.status(400).json({ error: "Both answers required" });
+            return res.status(400).json({ error: "Both answers are required!" });
         }
 
         const saved = await new Quiz({ foodAnswer, replyAnswer }).save();
+        console.log("✅ Quiz saved:", saved);
         res.status(201).json({ message: "Quiz saved!", data: saved });
+
     } catch (error) {
-        console.error("Create error:", error.message);
+        console.error("❌ Create error:", error.message);
         res.status(500).json({ error: error.message });
     }
 });
@@ -60,17 +65,20 @@ app.post("/create", async (req, res) => {
 // ===== ENDPOINT 2: Save Birthday Note =====
 app.post("/note", async (req, res) => {
     try {
-        console.log("Received note data:", req.body); // 👈 helps debug
+        console.log("📥 Note data received:", req.body);
+
         const { from, title, message } = req.body;
 
         if (!message) {
-            return res.status(400).json({ error: "Message is required" });
+            return res.status(400).json({ error: "Message is required!" });
         }
 
         const saved = await new Note({ from, title, message }).save();
+        console.log("✅ Note saved:", saved);
         res.status(201).json({ message: "Note saved!", data: saved });
+
     } catch (error) {
-        console.error("Note error:", error.message);
+        console.error("❌ Note error:", error.message);
         res.status(500).json({ error: error.message });
     }
 });
@@ -85,7 +93,7 @@ app.get("/notes", async (req, res) => {
     }
 });
 
-// ===== GET all quiz answers =====
+// ===== GET all quizzes =====
 app.get("/quizzes", async (req, res) => {
     try {
         const quizzes = await Quiz.find().sort({ createdAt: -1 });
