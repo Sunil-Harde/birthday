@@ -5,11 +5,16 @@ require("dotenv").config();
 
 const app = express();
 
+// ✅ CORS must be FIRST before everything
 app.use(cors({
     origin: "*",
-    methods: ["GET", "POST"],
-    allowedHeaders: ["Content-Type"]
+    methods: ["GET", "POST", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"]
 }));
+
+// ✅ Handle ALL preflight OPTIONS requests
+app.options("*", cors());
+
 app.use(express.json());
 
 // DB connection
@@ -18,13 +23,10 @@ mongoose.connect(process.env.MONGO_URI)
     .catch(err => console.log("❌ DB Error:", err));
 
 // ===== SCHEMA 1: Quiz Answers =====
-// ✅ 'quizzes' collection - fixed model name
 const quizSchema = new mongoose.Schema({
     foodAnswer: { type: String, required: true },
     replyAnswer: { type: String, required: true },
 }, { timestamps: true });
-
-// ✅ Force collection name to 'quizzes' explicitly
 const Quiz = mongoose.model("Quiz", quizSchema, "quizzes");
 
 // ===== SCHEMA 2: Birthday Notes =====
@@ -33,7 +35,6 @@ const noteSchema = new mongoose.Schema({
     title: String,
     message: { type: String, required: true },
 }, { timestamps: true });
-
 const Note = mongoose.model("Note", noteSchema, "notes");
 
 // ===== TEST ROUTE =====
@@ -45,7 +46,6 @@ app.get("/", (req, res) => {
 app.post("/create", async (req, res) => {
     try {
         console.log("📥 Quiz data received:", req.body);
-
         const { foodAnswer, replyAnswer } = req.body;
 
         if (!foodAnswer || !replyAnswer) {
@@ -66,7 +66,6 @@ app.post("/create", async (req, res) => {
 app.post("/note", async (req, res) => {
     try {
         console.log("📥 Note data received:", req.body);
-
         const { from, title, message } = req.body;
 
         if (!message) {
