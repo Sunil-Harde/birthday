@@ -20,7 +20,7 @@
         <div id="petals"></div>
         <canvas id="confetti-canvas"></canvas>
 
-        <nav id="main-nav" style="display: none;">
+        <nav id="main-nav">
             <a class="nav-logo" href="#">🌸 Birthday</a>
             <div class="nav-links">
                 <a href="#" onclick="showPage('welcome')" class="active" id="nav-welcome">Wishes</a>
@@ -36,31 +36,7 @@
             </div>
         </nav>
 
-        <div class="page active" id="page-quiz">
-            <div style="min-height:calc(100vh - 70px); display:flex; flex-direction:column; align-items:center; justify-content:center; padding: 2rem 1.5rem;">
-                
-                <div style="background: var(--card-bg); padding: 3rem 2rem; border-radius: 20px; border: 1px solid var(--border); backdrop-filter: blur(10px); max-width: 500px; width: 100%; text-align: center;">
-                    <h2 style="font-family: var(--font-display); color: var(--rose); margin-bottom: 1rem; font-size: 2.5rem;">Wait a minute... 🛑</h2>
-                    <p style="margin-bottom: 2rem; color: rgba(255,245,238,0.8);">Before you can see your surprise, answer these to prove it's you!</p>
-
-                    <div style="margin-bottom: 1.5rem; text-align: left;">
-                        <label style="display: block; margin-bottom: 0.5rem; color: var(--gold); font-weight: 600;">1. What is the one food you can never say no to?</label>
-                        <input type="text" id="q1" class="form-input" style="width: 100%;" placeholder="Enter answer...">
-                    </div>
-
-                    <div style="margin-bottom: 2rem; text-align: left;">
-                        <label style="display: block; margin-bottom: 0.5rem; color: var(--gold); font-weight: 600;">2. Who takes way longer to reply to texts?</label>
-                        <input type="text" id="q2" class="form-input" style="width: 100%;" placeholder="Enter 'me' or 'you'...">
-                    </div>
-
-                    <p id="quiz-error" style="color: #ff4757; font-size: 0.95rem; margin-bottom: 1rem; display: none; font-weight: 600;">Please answer both questions! 😂</p>
-
-                    <button class="cta-btn" id="unlock-btn" onclick="submitQuiz()" style="margin-top: 0;">Unlock Surprise 🔓</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="page" id="page-welcome">
+        <div class="page active" id="page-welcome">
             <div style="min-height:calc(100vh - 70px); display:flex; flex-direction:column; align-items:center; justify-content:center; padding: 2rem 1.5rem; position:relative;">
                 <span class="welcome-badge">✨ Time to Celebrate ✨</span>
                 <h1 class="welcome-title">
@@ -115,9 +91,7 @@
                     </button>
                 </div>
             </div>
-        </div>
-
-        <div class="page" id="page-memories">
+        </div> <div class="page" id="page-memories">
             <div class="page-header">
                 <h1>Our Fun Memories 📷</h1>
                 <p>A few of my favorite moments... click to explore!</p>
@@ -159,9 +133,7 @@
             <div style="text-align:center; margin-top:3rem;">
                 <button class="cta-btn" onclick="showPage('messages')">Read Special Messages 📝 <span class="arrow">→</span></button>
             </div>
-        </div>
-
-        <div id="lightbox" onclick="closeLightbox(event)">
+        </div> <div id="lightbox" onclick="closeLightbox(event)">
             <img id="lightbox-img" src="" alt="">
             <div id="lightbox-caption"></div>
             <button id="lightbox-close" onclick="closeLightbox()">✕</button>
@@ -204,12 +176,20 @@
                     <div class="msg-icon">✌️</div>
                 </div>
             </div>
+
+            <div class="add-msg-section" data-aos="fade-up">
+                <h3>Add a Birthday Note ✍️</h3>
+               <!-- REPLACE the add-msg-form div with this -->
+<div class="add-msg-form">
+    <input class="form-input" id="msg-title" placeholder="Note title" type="text">
+    <textarea class="form-textarea" id="msg-body" placeholder="Write a funny or sweet message..."></textarea>
+    <button class="submit-btn" onclick="addWish()">✉️ Drop a Note</button>
+</div>
+            </div>
             <div style="text-align:center; margin-top:3rem;">
                 <button class="cta-btn" onclick="showPage('timeline')">Friendship Journey 🕰️ <span class="arrow">→</span></button>
             </div>
-        </div>
-
-        <div class="page" id="page-timeline">
+        </div> <div class="page" id="page-timeline">
             <div class="page-header">
                 <h1>Friendship Timeline 🕰️</h1>
                 <p>From the first hello to right now.</p>
@@ -255,9 +235,7 @@
             <div style="text-align:center; margin-top:3rem;">
                 <button class="cta-btn" onclick="showPage('surprise')">🎁 Open Your Surprise <span class="arrow">→</span></button>
             </div>
-        </div>
-
-        <div class="page" id="page-surprise">
+        </div> <div class="page" id="page-surprise">
             <div class="surprise-title" data-aos="zoom-in">🎉 SURPRISE! 🎉</div>
             <div class="surprise-subtitle" data-aos="fade-up" data-aos-delay="200">A special shoutout just for you!</div>
 
@@ -290,9 +268,7 @@
             <div style="text-align:center; margin-top:3rem;">
                 <button class="cta-btn" onclick="showPage('final')">🏁 Wrap It Up <span class="arrow">→</span></button>
             </div>
-        </div>
-
-        <div class="page" id="page-final">
+        </div> <div class="page" id="page-final">
             <div class="blurred-bg">
                 <img src="WhatsApp Image 2026-04-21 at 4.50.57 PM (1).jpeg" alt="Blur" loading="lazy">
                 <img src="WhatsApp Image 2026-04-21 at 4.54.59 PM (1).jpeg" alt="Blur" loading="lazy">
@@ -307,9 +283,7 @@
                 <button class="cta-btn" onclick="showPage('welcome')">🔄 Back to Start</button>
                 <div class="made-with">Made with good vibes for you • <span id="made-by-name">Your Friend</span></div>
             </div>
-        </div>
-
-        <audio id="bg-music" loop></audio>
+        </div> <audio id="bg-music" loop></audio>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
         <script src="./index.js"></script>
