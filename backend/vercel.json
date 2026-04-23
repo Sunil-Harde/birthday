@@ -1,11 +1,10 @@
 {
     "version": 2,
-    "builds": [
-        {
-            "src": "api/index.js",
-            "use": "@vercel/node"
+    "functions": {
+        "index.js": {
+            "runtime": "@vercel/node@3.0.0"
         }
-    ],
+    },
     "routes": [
         {
             "src": "/(.*)",
@@ -16,7 +15,7 @@
                 "Access-Control-Allow-Headers": "Content-Type",
                 "Access-Control-Max-Age": "86400"
             },
-            "dest": "api/index.js"
+            "dest": "index.js"
         },
         {
             "src": "/(.*)",
@@ -25,7 +24,7 @@
                 "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
                 "Access-Control-Allow-Headers": "Content-Type"
             },
-            "dest": "api/index.js"
+            "dest": "index.js"
         }
     ]
 }
