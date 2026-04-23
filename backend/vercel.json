@@ -8,13 +8,24 @@
     ],
     "routes": [
         {
-            "src": "/(.*)",
-            "dest": "server.js",
-            "headers": {
-                "Access-Control-Allow-Origin": "*",
-                "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-                "Access-Control-Allow-Headers": "Content-Type"
-            }
+            "src": "/create",
+            "dest": "server.js"
+        },
+        {
+            "src": "/note",
+            "dest": "server.js"
+        },
+        {
+            "src": "/notes",
+            "dest": "server.js"
+        },
+        {
+            "src": "/quizzes",
+            "dest": "server.js"
+        },
+        {
+            "src": "/",
+            "dest": "server.js"
         }
     ]
 }

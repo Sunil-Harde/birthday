@@ -5,16 +5,18 @@ require("dotenv").config();
 
 const app = express();
 
-// ✅ CORS must be FIRST before everything
-app.use(cors({
-    origin: "*",
-    methods: ["GET", "POST", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"]
-}));
+// ✅ Manual CORS headers — most reliable on Vercel
+app.use((req, res, next) => {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+    if (req.method === "OPTIONS") {
+        return res.status(200).end();
+    }
+    next();
+});
 
-// ✅ Handle ALL preflight OPTIONS requests
-app.options("*", cors());
-
+app.use(cors({ origin: "*" }));
 app.use(express.json());
 
 // DB connection
