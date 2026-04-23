@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Happy Birthday 🎉</title>
+        
+        <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Nunito:wght@300;400;600;700&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+        <link rel="stylesheet" href="./style.css">
+    </head>
+    <body>
+
+        <div id="loading">
+            <div class="loading-flower">🌸</div>
+            <div class="loading-text">Something beautiful is loading...</div>
+            <div class="loading-bar"><div class="loading-fill"></div></div>
+        </div>
+
+        <div id="petals"></div>
+        <canvas id="confetti-canvas"></canvas>
+
+        <nav id="main-nav">
+            <a class="nav-logo" href="#">🌸 Birthday</a>
+            <div class="nav-links">
+                <a href="#" onclick="showPage('welcome')" class="active" id="nav-welcome">Wishes</a>
+                <a href="#" onclick="showPage('memories')" id="nav-memories">Memories</a>
+                <a href="#" onclick="showPage('messages')" id="nav-messages">Messages</a>
+                <a href="#" onclick="showPage('timeline')" id="nav-timeline">Journey</a>
+                <a href="#" onclick="showPage('surprise')" id="nav-surprise">Surprise 🎁</a>
+                <a href="#" onclick="showPage('final')" id="nav-final">👋 Final</a>
+            </div>
+            <div class="nav-right">
+                <button class="toggle-btn" onclick="toggleMode()">🌙 Mode</button>
+                <button class="music-btn" id="music-btn" onclick="toggleMusic()" title="Toggle Music">🎵</button>
+            </div>
+        </nav>
+
+        <div class="page active" id="page-welcome">
+            <div style="min-height:calc(100vh - 70px); display:flex; flex-direction:column; align-items:center; justify-content:center; padding: 2rem 1.5rem; position:relative;">
+                <span class="welcome-badge">✨ Time to Celebrate ✨</span>
+                <h1 class="welcome-title">
+                    Happy Birthday
+                    <span class="welcome-name" id="birthday-name">Bestie</span>
+                </h1>
+                <div class="typing-container">
+                    <span id="typed-text"></span><span class="cursor"></span>
+                </div>
+                <button class="cta-btn" onclick="showPage('memories')">
+                    See Our Memories <span class="arrow">→</span>
+                </button>
+            </div>
+
+            <div class="wishes-section">
+                <h2>Best Friend Wishes 💌</h2>
+                <div class="wishes-grid">
+                    <div class="wish-card" data-aos="fade-up" data-aos-delay="0">
+                        <span class="wish-icon">😂</span>
+                        <h3>Endless Laughter</h3>
+                        <p>May your year be filled with so many inside jokes and hilarious moments that your stomach hurts from laughing.</p>
+                    </div>
+                    <div class="wish-card" data-aos="fade-up" data-aos-delay="100">
+                        <span class="wish-icon">⭐</span>
+                        <h3>Stay Awesome</h3>
+                        <p>Never lose that fun, crazy, and amazing energy that makes you exactly who you are. You're one of a kind!</p>
+                    </div>
+                    <div class="wish-card" data-aos="fade-up" data-aos-delay="200">
+                        <span class="wish-icon">🎯</span>
+                        <h3>Crush Your Goals</h3>
+                        <p>Whatever you decide to go after this year, I know you're going to absolutely crush it. I'll be cheering you on!</p>
+                    </div>
+                    <div class="wish-card" data-aos="fade-up" data-aos-delay="300">
+                        <span class="wish-icon">🍕</span>
+                        <h3>Good Times & Vibes</h3>
+                        <p>Here is to more late-night chats, random outings, taking a million photos, and eating way too much good food.</p>
+                    </div>
+                    <div class="wish-card" data-aos="fade-up" data-aos-delay="400">
+                        <span class="wish-icon">🛡️</span>
+                        <h3>Always Got Your Back</h3>
+                        <p>Through the good days, the bad days, and the weird days, you know I've always got your back no matter what.</p>
+                    </div>
+                    <div class="wish-card" data-aos="fade-up" data-aos-delay="500">
+                        <span class="wish-icon">🎂</span>
+                        <h3>The Best Year Yet</h3>
+                        <p>May this be the year you take all the trips, buy the things you want, and just have the absolute best time living life.</p>
+                    </div>
+                </div>
+                <div style="text-align:center; margin-top:3rem;">
+                    <button class="cta-btn" onclick="showPage('memories')">
+                        Our Memories Await 📷 <span class="arrow">→</span>
+                    </button>
+                </div>
+            </div>
+        </div> <div class="page" id="page-memories">
+            <div class="page-header">
+                <h1>Our Fun Memories 📷</h1>
+                <p>A few of my favorite moments... click to explore!</p>
+            </div>
+            <div class="photo-grid">
+                <div class="photo-item" data-aos="zoom-in" data-aos-delay="0" onclick="openLightbox(0)">
+                    <img src="WhatsApp Image 2026-04-21 at 4.50.57 PM.jpeg" alt="Memory 1" loading="lazy">
+                    <div class="photo-caption">Golden Hour Glow</div>
+                </div>
+                <div class="photo-item" data-aos="zoom-in" data-aos-delay="100" onclick="openLightbox(1)">
+                    <img src="WhatsApp Image 2026-04-21 at 4.50.56 PM.jpeg" alt="Memory 2" loading="lazy">
+                    <div class="photo-caption">Pure Joy</div>
+                </div>
+                <div class="photo-item" data-aos="zoom-in" data-aos-delay="200" onclick="openLightbox(2)">
+                    <img src="WhatsApp Image 2026-04-21 at 4.54.59 PM (1).jpeg" alt="Memory 3" loading="lazy">
+                    <div class="photo-caption">Field of Dreams</div>
+                </div>
+                <div class="photo-item" data-aos="zoom-in" data-aos-delay="300" onclick="openLightbox(3)">
+                    <img src="WhatsApp Image 2026-04-21 at 4.50.56 PM (2).jpeg" alt="Memory 4" loading="lazy">
+                    <div class="photo-caption">Nature's Muse</div>
+                </div>
+                <div class="photo-item" data-aos="zoom-in" data-aos-delay="400" onclick="openLightbox(4)">
+                    <img src="WhatsApp Image 2026-04-21 at 4.50.57 PM (1).jpeg" alt="Memory 5" loading="lazy">
+                    <div class="photo-caption">Effortless Elegance</div>
+                </div>
+                <div class="photo-item" data-aos="zoom-in" data-aos-delay="500" onclick="openLightbox(5)">
+                    <img src="WhatsApp Image 2026-04-21 at 4.50.56 PM (1).jpeg" alt="Memory 6" loading="lazy">
+                    <div class="photo-caption">Caught Smiling</div>
+                </div>
+                <div class="photo-item" data-aos="zoom-in" data-aos-delay="600" onclick="openLightbox(6)">
+                    <img src="WhatsApp Image 2026-04-21 at 4.50.57 PM (2).jpeg" alt="Memory 7" loading="lazy">
+                    <div class="photo-caption">Café Vibes</div>
+                </div>
+                <div class="photo-item" data-aos="zoom-in" data-aos-delay="700" onclick="openLightbox(7)">
+                    <img src="WhatsApp Image 2026-04-21 at 4.50.57 PM.jpeg" alt="Memory 8" loading="lazy">
+                    <div class="photo-caption">A Special Moment</div>
+                </div>
+            </div>
+            <div style="text-align:center; margin-top:3rem;">
+                <button class="cta-btn" onclick="showPage('messages')">Read Special Messages 📝 <span class="arrow">→</span></button>
+            </div>
+        </div> <div id="lightbox" onclick="closeLightbox(event)">
+            <img id="lightbox-img" src="" alt="">
+            <div id="lightbox-caption"></div>
+            <button id="lightbox-close" onclick="closeLightbox()">✕</button>
+            <button style="position:absolute;left:1.5rem;top:50%;transform:translateY(-50%);background:none;border:1px solid rgba(255,255,255,0.3);color:white;width:44px;height:44px;border-radius:50%;cursor:pointer;font-size:1.2rem;" onclick="lightboxNav(-1);event.stopPropagation()">‹</button>
+            <button style="position:absolute;right:1.5rem;top:50%;transform:translateY(-50%);background:none;border:1px solid rgba(255,255,255,0.3);color:white;width:44px;height:44px;border-radius:50%;cursor:pointer;font-size:1.2rem;" onclick="lightboxNav(1);event.stopPropagation()">›</button>
+        </div>
+
+        <div class="page" id="page-messages">
+            <div class="page-header">
+                <h1>Friendship Notes 💌</h1>
+                <p>Because you're a pretty awesome friend!</p>
+            </div>
+            <div class="messages-grid">
+                <div class="message-card" data-aos="fade-up">
+                    <img class="msg-thumb" src="WhatsApp Image 2026-04-21 at 4.50.57 PM (1).jpeg" alt="Friend">
+                    <div class="msg-from">Your Partner in Crime</div>
+                    <h3>"The Best Vibes"</h3>
+                    <p>Hanging out with you is never boring. Thanks for always matching my crazy energy and being someone I can totally be myself around. Happy Birthday!</p>
+                    <div class="msg-icon">🙌</div>
+                </div>
+                <div class="message-card" data-aos="fade-up" data-aos-delay="100">
+                    <img class="msg-thumb" src="WhatsApp Image 2026-04-21 at 4.50.56 PM (2).jpeg" alt="Always">
+                    <div class="msg-from">Your Biggest Fan</div>
+                    <h3>"Keep Crushing It"</h3>
+                    <p>You're so talented and hardworking, and I know you're going to do amazing things. Don't ever doubt how awesome you are!</p>
+                    <div class="msg-icon">💪</div>
+                </div>
+                <div class="message-card" data-aos="fade-up" data-aos-delay="200">
+                    <img class="msg-thumb" src="WhatsApp Image 2026-04-21 at 4.54.59 PM (1).jpeg" alt="With Love">
+                    <div class="msg-from">Your Photographer</div>
+                    <h3>"Main Character Energy"</h3>
+                    <p>Always serving the best looks and taking the best photos! May your Instagram feed be blessed with 10/10 aesthetic pictures this whole year.</p>
+                    <div class="msg-icon">📸</div>
+                </div>
+                <div class="message-card" data-aos="fade-up" data-aos-delay="300">
+                    <img class="msg-thumb" src="WhatsApp Image 2026-04-21 at 4.50.57 PM (2).jpeg" alt="Forever">
+                    <div class="msg-from">Your Support System</div>
+                    <h3>"Always Here For You"</h3>
+                    <p>Whether you want to rant about life, go grab some food, or just chill, you know who to call. I'm always going to be in your corner.</p>
+                    <div class="msg-icon">✌️</div>
+                </div>
+            </div>
+
+            <div class="add-msg-section" data-aos="fade-up">
+                <h3>Add a Birthday Note ✍️</h3>
+               <!-- REPLACE the add-msg-form div with this -->
+<div class="add-msg-form">
+    <input class="form-input" id="msg-from" placeholder="Your name" type="text">
+    <input class="form-input" id="msg-title" placeholder="Note title" type="text">
+    <textarea class="form-textarea" id="msg-body" placeholder="Write a funny or sweet message..."></textarea>
+    <button class="submit-btn" onclick="addWish()">✉️ Drop a Note</button>
+</div>
+            </div>
+            <div style="text-align:center; margin-top:3rem;">
+                <button class="cta-btn" onclick="showPage('timeline')">Friendship Journey 🕰️ <span class="arrow">→</span></button>
+            </div>
+        </div> <div class="page" id="page-timeline">
+            <div class="page-header">
+                <h1>Friendship Timeline 🕰️</h1>
+                <p>From the first hello to right now.</p>
+            </div>
+            <div class="timeline" id="timeline-container">
+                <div class="tl-item" data-aos="fade-right">
+                    <div class="tl-dot"></div>
+                    <div class="tl-content">
+                        <div class="tl-year">✨ How It Started</div>
+                        <h3>The First Meeting</h3>
+                        <p>Back when we first met and started talking. Little did we know how much fun and how many chaotic memories we were about to make!</p>
+                        <img class="tl-photo" src="WhatsApp Image 2026-04-21 at 4.50.56 PM (2).jpeg" alt="The Beginning" loading="lazy">
+                    </div>
+                </div>
+                <div class="tl-item" data-aos="fade-left">
+                    <div class="tl-dot"></div>
+                    <div class="tl-content">
+                        <div class="tl-year">🌿 Growing Friendship</div>
+                        <h3>Adventures & Outings</h3>
+                        <p>Finding all the good spots to hang out, talking about everything, and slowly realizing we have the exact same crazy vibe.</p>
+                        <img class="tl-photo" src="WhatsApp Image 2026-04-21 at 4.54.59 PM (1).jpeg" alt="Adventures" loading="lazy">
+                    </div>
+                </div>
+                <div class="tl-item" data-aos="fade-right">
+                    <div class="tl-dot"></div>
+                    <div class="tl-content">
+                        <div class="tl-year">🎉 The Good Times</div>
+                        <h3>Memories & Laughs</h3>
+                        <p>All the times we celebrated each other's wins and hyped each other up. Every hangout is an automatic good time.</p>
+                        <img class="tl-photo" src="WhatsApp Image 2026-04-21 at 4.50.56 PM.jpeg" alt="Celebrations" loading="lazy">
+                    </div>
+                </div>
+                <div class="tl-item" data-aos="fade-left">
+                    <div class="tl-dot"></div>
+                    <div class="tl-content">
+                        <div class="tl-year">🌸 Right Now</div>
+                        <h3>Cheers To You!</h3>
+                        <p>And here we are celebrating your birthday! You're an incredible friend, and I'm so glad we crossed paths.</p>
+                        <img class="tl-photo" src="WhatsApp Image 2026-04-21 at 4.50.57 PM (1).jpeg" alt="Today" loading="lazy">
+                    </div>
+                </div>
+            </div>
+            <div style="text-align:center; margin-top:3rem;">
+                <button class="cta-btn" onclick="showPage('surprise')">🎁 Open Your Surprise <span class="arrow">→</span></button>
+            </div>
+        </div> <div class="page" id="page-surprise">
+            <div class="surprise-title" data-aos="zoom-in">🎉 SURPRISE! 🎉</div>
+            <div class="surprise-subtitle" data-aos="fade-up" data-aos-delay="200">A special shoutout just for you!</div>
+
+            <div class="collage-grid" data-aos="zoom-in" data-aos-delay="300" style="max-width:800px; margin: 0 auto 2.5rem;">
+                <img src="WhatsApp Image 2026-04-21 at 4.50.57 PM.jpeg" alt="Collage" loading="lazy">
+                <img src="WhatsApp Image 2026-04-21 at 4.54.59 PM (1).jpeg" alt="Collage" loading="lazy">
+                <img src="WhatsApp Image 2026-04-21 at 4.50.56 PM (2).jpeg" alt="Collage" loading="lazy">
+                <img src="WhatsApp Image 2026-04-21 at 4.50.57 PM (1).jpeg" alt="Collage" loading="lazy">
+                <img src="WhatsApp Image 2026-04-21 at 4.50.56 PM.jpeg" alt="Collage" loading="lazy">
+                <img src="WhatsApp Image 2026-04-21 at 4.50.57 PM (2).jpeg" alt="Collage" loading="lazy">
+            </div>
+
+            <div class="surprise-message" data-aos="fade-up" data-aos-delay="400">
+                <h2>To An Amazing Friend 🌟</h2>
+                <p>They say good friends are like stars — you don't always see them, but you know they're always there. Thank you for being such an awesome friend, for all the laughs, the solid advice, and the genuinely great memories.</p>
+                <p>You have this amazing ability to make things fun no matter what we are doing. You are smart, beautiful, and absolutely hilarious, and you deserve nothing but the best things to come your way.</p>
+                <p>Have the absolute best birthday ever today. Eat lots of cake, take lots of pictures, and let's make this next year of your life even better than the last! 🥳</p>
+                <p style="color: var(--rose); font-family: var(--font-script); font-size: 1.5rem; margin-top: 1.5rem;">Cheers to another great year! 🥂</p>
+            </div>
+
+            <button class="reveal-btn" onclick="revealGift()">🎁 Click for One Last Thing</button>
+            <div class="gift-msg" id="gift-msg">
+                <div style="font-size:4rem; margin-bottom:1rem;">🙌</div>
+                <div style="font-family:var(--font-display); font-size:2rem; color:var(--gold); margin-bottom:1rem;">Your gift is an unbreakable friendship!</div>
+                <p style="max-width:480px; margin:0 auto; color:rgba(255,245,238,0.8); line-height:1.8;">
+                    Thanks for being exactly who you are. The world is a much cooler place with you in it. Have an amazing day! 🎈
+                </p>
+            </div>
+
+            <div style="text-align:center; margin-top:3rem;">
+                <button class="cta-btn" onclick="showPage('final')">🏁 Wrap It Up <span class="arrow">→</span></button>
+            </div>
+        </div> <div class="page" id="page-final">
+            <div class="blurred-bg">
+                <img src="WhatsApp Image 2026-04-21 at 4.50.57 PM (1).jpeg" alt="Blur" loading="lazy">
+                <img src="WhatsApp Image 2026-04-21 at 4.54.59 PM (1).jpeg" alt="Blur" loading="lazy">
+                <img src="WhatsApp Image 2026-04-21 at 4.50.57 PM.jpeg" alt="Blur" loading="lazy">
+            </div>
+            <div class="final-content">
+                <div class="final-heart">🎉</div>
+                <h1 class="final-title">Hope You Had Fun!</h1>
+                <p class="final-msg">
+                    Made this little site just to show appreciation for an awesome friend. I hope it made you smile and kickstarted your birthday the right way!
+                </p>
+                <button class="cta-btn" onclick="showPage('welcome')">🔄 Back to Start</button>
+                <div class="made-with">Made with good vibes for you • <span id="made-by-name">Your Friend</span></div>
+            </div>
+        </div> <audio id="bg-music" loop></audio>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+        <script src="./index.js"></script>
+    </body>
+</html>
